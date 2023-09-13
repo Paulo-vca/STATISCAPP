@@ -13,7 +13,3 @@ body {
 .stage {
     display: none;
 }
-
-.stage.active {
-    display: block;
-}
