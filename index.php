@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <script src="charts.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
@@ -42,107 +43,7 @@
             </div>
             
             <div class="container mt-5">
-                <div class="row">
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(0)">
-                                <h3>Gráfico xxxxx</h3>
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart1"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(1)">
-                                <h3>Gráfico xxxxx</h3>
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart2"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(2)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart3"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(3)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart4"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(4)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart5"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(5)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart6"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(6)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart7"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(7)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart8"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-3 btn">
-                        <div class="card">
-                            <div class="card-body" onclick="selectGraph(8)">
-                                <h3>Gráfico xxxxx</h3>        
-                                <p>Descrição do grafico</p>
-                                <div>
-                                    <canvas id="myChart9"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="demo-chart-container" class="row"></div>
             </div>
         </section>
 
@@ -176,16 +77,15 @@
 
         <section class="stage">
             <h4>Gráfico:</h4>
-            <canvas id="chart"></canvas>
+            <div id="canvas-container"></div>
 
             <h4>Opções:</h4>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary">Salvar dados</button>
-                <button type="button" class="btn btn-primary">Importar gráfico</button>
+                <button type="button" class="btn btn-primary" onclick="saveData()">Salvar dados</button>
+                <button type="button" class="btn btn-primary" onclick="importData()">Importar gráfico</button>
                 <button type="button" class="btn btn-danger" onclick="resetApp()">Recomeçar</button>
             </div>
         </section>
-
     </main>
 </body>
 </html>

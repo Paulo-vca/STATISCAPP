@@ -3,7 +3,6 @@
 // global vars
 let file, rawContent, lines, headers, columns, selectedGraph, selectedColumn;
 
-
 function showStage(num) {
     $('.stage').hide()
     $(`.stage:eq(${num})`).show()
@@ -24,20 +23,26 @@ function uploadCSV(event) {
     file = event.target.files[0]
 
     const reader = new FileReader();
-    reader.onload = function (e) {
-       const text = e.target.result;
-       rawContent = text;
-       lines = rawContent.split('\n');
-       headers = lines[0].split(',');
-       columns = lines.filter((e, i) => i !== 0).map(e => e.split(','))
+    reader.onload = e => {
+        const text = e.target.result;
+        rawContent = text;
+        lines = rawContent.split('\n');
+        headers = lines[0].split(',');
+        columns = lines.filter((e, i) => i !== 0).map(e => e.split(','))
 
-        $('#columns-table thead tr').html(headers.map(e => `<th>${e}</th>`).join(''))
-        $('#columns-table tbody tr:last-child').html(headers.map((e, i) => `
+        // filtering headers with non-int columns
+        const filteredHeaders = headers.map((e, i) => ({name: e, index: i})).filter((header, index) => {
+            return !isNaN(columns[0][index])
+        });
+
+        console.log(filteredHeaders);
+
+        $('#columns-table thead tr').html(filteredHeaders.map(e => `<th>${e.name}</th>`).join(''))
+        $('#columns-table tbody tr:last-child').html(filteredHeaders.map(e => `
             <td>
-                <button type="button" class="btn btn-primary" onclick="generateGraphs(${i})">Gerar grafico desta coluna</button>
+                <button type="button" class="btn btn-primary" onclick="generateGraphs(${e.index})">Gerar grafico desta coluna</button>
             </td>
         `).join(''))
-
     };
     reader.readAsText(file);
 }
@@ -50,7 +55,8 @@ function selectGraph(graph) {
 function generateGraphs(column) {
     selectedColumn = column
     nextStage(5)
-
+    
+    $('#canvas-container').html('<canvas id="chart"></canvas>')
     const ctx = document.getElementById('chart');
 
     const values = columns.map(e => e[selectedColumn])
@@ -65,7 +71,7 @@ function generateGraphs(column) {
     new Chart(ctx, {
         type: 'bar',
         data: {
-        labels: ['Média', 'Moda', 'Mediana', 'Desvio padrão', 'NN lembro'],
+        labels,
         datasets: [{
             label: '#',
             data,
@@ -116,32 +122,51 @@ function resetApp() {
     nextStage(0)
 }
 
-window.onload = () => {
-    resetApp()
-    for (let index = 1; index < 10; index++) {
-        const ctx = document.getElementById('myChart'+index);
+function saveData() {
+    const data = {
+        headers,
+        columns,
+    };
 
-        if (!ctx) {
-            continue
-        }
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-            },
-            options: {
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            }
-            }
-        });                
-    }
+    localStorage.setItem('data', JSON.stringify(data));
+    nextStage(0)
 }
+
+function importData() {
+    const canvas = document.getElementById('chart');
+
+    if (!canvas) {
+      console.error(`Elemento canvas com ID 'chart' não encontrado.`);
+      return;
+    }
+  
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL();
+    link.download = 'dados';
+    link.click();
+
+    nextStage(0)
+}
+
+
+$(document).ready(() =>{
+    resetApp()
+
+    const root = $('#demo-chart-container');
+    Object.keys(charts).forEach((e, i) => {
+        root.append(`
+            <div class="col-6 p-3 btn">
+                <div class="card">
+                    <div class="card-body" onclick="selectGraph(0)">
+                        <h3>Gráfico ${e}</h3>
+                        <p>Descrição do grafico</p>
+                        <canvas id="demo-chart-${i}"></canvas>
+                    </div>
+                </div>
+            </div>
+        `)
+
+        const ctx = document.getElementById(`demo-chart-${i}`);
+        new Chart(ctx, charts[e]);                
+    });
+})
