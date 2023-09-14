@@ -27,7 +27,8 @@
         
         <section class="stage" style="display: block">
             <h4 class="text-center mb-5">Coloque seus dados</h4>
-            <button class="d-block mx-auto p-3 btn btn-primary" onclick="nextStage(1)">Selecionar</button>
+            <label class="d-table mx-auto p-3 btn btn-primary" for="csvFile">Selecionar</label>
+            <input type="file" id="csvFile" class="d-none" accept=".csv" onchange="uploadCSV(event)" />
         </section>
 
         <section class="stage">
@@ -44,7 +45,7 @@
                 <div class="row">
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(0)">
                                 <h3>Gráfico xxxxx</h3>
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -55,7 +56,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(1)">
                                 <h3>Gráfico xxxxx</h3>
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -66,7 +67,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(2)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -77,7 +78,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(3)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -88,7 +89,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(4)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -99,7 +100,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(5)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -110,7 +111,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(6)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -121,7 +122,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(7)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -132,7 +133,7 @@
                     </div>
                     <div class="col-6 p-3 btn">
                         <div class="card">
-                            <div class="card-body" onclick="nextStage(3)">
+                            <div class="card-body" onclick="selectGraph(8)">
                                 <h3>Gráfico xxxxx</h3>        
                                 <p>Descrição do grafico</p>
                                 <div>
@@ -146,7 +147,31 @@
         </section>
 
         <section class="stage">
-            <p class="text-center text-muted">Gerando grafico escolhido com os dados informados</p>
+            <p class="text-center text-muted">Preparando dados...</p>
+        </section>
+
+        <section class="stage">
+            <h4>Dados fornecidos:</h4>
+            <div class="table-responsive">
+                <table id="columns-table" class="table table-bordered table-striped">
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-primary" onclick="nextStage(5)">Gerar grafico desta coluna</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="button" class="btn btn-danger" onclick="resetApp()">Recomeçar</button>
+        </section>
+
+        <section class="stage">
+            <p class="text-center text-muted">Gerando grafícos...</p>
         </section>
 
         <section class="stage">
@@ -156,38 +181,10 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-primary">Salvar dados</button>
                 <button type="button" class="btn btn-primary">Importar gráfico</button>
-                <button type="button" class="btn btn-primary" onclick="nextStage(0)">Recomeçar</button>
+                <button type="button" class="btn btn-danger" onclick="resetApp()">Recomeçar</button>
             </div>
-
-            <h4>Dados fornecidos:</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        for ($i=0; $i < 100; $i++):
-                    ?>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                    <?php
-                        endfor;
-                    ?>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
+
     </main>
 </body>
 </html>
