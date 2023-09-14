@@ -25,7 +25,7 @@
             <h1 class="mb-5">STATISCAPP</h1>
         </header>
         
-        <section class="stage" style="display: block">
+        <section class="stage">
             <h4 class="text-center mb-5">Coloque seus dados</h4>
             <label class="d-table mx-auto p-3 btn btn-primary" for="csvFile">Selecionar</label>
             <input type="file" id="csvFile" class="d-none" accept=".csv" onchange="uploadCSV(event)" />
@@ -176,6 +176,7 @@
 
         <section class="stage">
             <h4>Gráfico:</h4>
+            <canvas id="chart"></canvas>
 
             <h4>Opções:</h4>
             <div class="btn-group">
