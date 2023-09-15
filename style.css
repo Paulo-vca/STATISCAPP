@@ -9,7 +9,10 @@ body {
     background-color: cornflowerblue;
 }
 
-
 .stage {
     display: none;
+}
+
+footer {
+    margin-top: 2rem;
 }
