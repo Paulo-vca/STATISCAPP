@@ -85,6 +85,12 @@
                 <button type="button" class="btn btn-danger" onclick="resetApp()">Recomeçar</button>
             </div>
         </section>
+
+        <footer>
+            <p>
+                Feito com amor por Paulin, Pavanelli e Christian 💀💖
+            </p>
+        </footer>
     </main>
 </body>
 </html>
