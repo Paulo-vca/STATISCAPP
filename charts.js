@@ -1,6 +1,6 @@
 
 
-const labels = ['Média', 'Moda', 'Mediana', 'Desvio padrão', 'NN lembro'];
+const labels = ['Média', 'Moda', 'Mediana', 'Desvio padrão', 'Variância'];
 const demoData = [11, 5, 13, 14, 8];
 const demoData2 = [14, 10, 8, 14, 6];
 

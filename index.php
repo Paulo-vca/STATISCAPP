@@ -81,7 +81,6 @@
 
             <h4>Opções:</h4>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" onclick="saveData()">Salvar dados</button>
                 <button type="button" class="btn btn-primary" onclick="importData()">Importar gráfico</button>
                 <button type="button" class="btn btn-danger" onclick="resetApp()">Recomeçar</button>
             </div>
